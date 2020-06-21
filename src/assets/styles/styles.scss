@@ -1,0 +1,113 @@
+@import "variable";
+
+.c-products-wrapper{
+  a{
+    color: black;
+    text-decoration: none;
+  }
+  .to-women{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+
+    h2{
+
+      padding: 6px;
+      border: $mark solid 1px;
+      text-transform: uppercase;
+    }
+  }
+  .to-men{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+
+    h2{
+
+      padding: 6px;
+      border: $mark solid 1px;
+      text-transform: uppercase;
+    }
+  }
+  .color-select{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    ul{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      list-style: none;
+      li{
+        padding: $p-1*2;
+        font-size: 2rem;
+        svg:hover{
+          transition-duration: .7s;
+          transform: scale(1.5);
+
+
+        }
+      }
+    }
+  }
+  .card-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 30%;
+    justify-content: space-around;
+
+  }
+}
+.c-products-wrapper-item{
+  min-width: 30%;
+
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 8px 0 #e0e0e0;
+  padding: $p-1;
+  margin-bottom: $m-1;
+
+  &_image{
+    margin-right: 2rem;
+    max-width: 355px;
+    max-height: 300px;
+  }
+  &_image:hover{
+    transition: ease-in-out .7s ;
+    transform: scale(1.2);
+  }
+  &_brand{
+    color: $mark;
+    margin-block-start: .1em;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .c-products-wrapper-item-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+
+  }
+
+
+
+}
+.c-products-wrapper-item:hover{
+  transition: ease-in-out 1s ;
+  box-shadow: 0 0 2px 0 #ee4266;
+  border-bottom-right-radius: 40px;
+  border-top-left-radius: 20px;
+}
