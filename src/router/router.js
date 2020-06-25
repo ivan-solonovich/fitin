@@ -22,6 +22,7 @@ import CWomenPants from '../components/catalog/women/c-women-category/products/c
 import CWomenDress from '../components/catalog/women/c-women-category/products/c-women-dress'
 //MEN
 import CMenOveralls from '../components/catalog/men/c-men-category/products/c-men-overalls'
+import CMenCoats from '../components/catalog/men/c-men-category/products/c-men-coats'
 
 Vue.use(VueRouter)
 
@@ -110,6 +111,12 @@ const router = new VueRouter(
                 path: '/catalog-men-overalls',
                 name: 'cm-overalls',
                 component: CMenOveralls
+
+            },
+            {
+                path: '/catalog-men-coats',
+                name: 'cm-coats',
+                component: CMenCoats
 
             },
 

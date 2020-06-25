@@ -32,7 +32,7 @@
         },
         computed: {
             ...mapGetters([
-                "PRODUCT_WOMAN_CARDIGANS"
+                "PRODUCT_MAN_COAT"
             ]),
 
         },

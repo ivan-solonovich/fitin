@@ -22,6 +22,8 @@
             <button class="btn-choose-color"  @click="selectedThistle"><i style="color: thistle"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedBlue"><i style="color: blue"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedViolet"><i style="color: violet"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedSandyBrown"><i style="color: sandybrown"  class="fas fa-2x fa-tshirt"></i></button>
+
         </div>
 
         <h2 class="sorted-category-status" v-if="sortedCategoryStatus === true">
@@ -62,6 +64,7 @@
                 sortedSubCategoryStatus: false,
                 selectedSubcategoryCoatAll: false,
                 sortedSubCategoryName: '',
+                productSource: []
             }
         },
         props:{
@@ -71,6 +74,12 @@
             ...mapActions([
                 'GET_PRODUCTS_FROM_API',
             ]),
+            productSources: function(productSource){
+
+                this.productSource = this.PRODUCT_MAN_COAT
+
+
+            },
 
             selectSubcategoryCoatAll(selectedSubcategoryCoatAll) {
                 if (selectedSubcategoryCoatAll === true){
@@ -80,7 +89,7 @@
                     if (this.sortedCategories.length){
                         return this.sortedCategories
                     }else {
-                        return this.PRODUCT_MAN_COAT
+                        return this.productSource
                     }
                 }
 
@@ -111,7 +120,7 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
-                    this.PRODUCT_MAN_COAT.map(function (item) {
+                    this.productSource.map(function (item) {
                         if (item.subcategory === 'downjacket'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'downjacket'
@@ -131,7 +140,7 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
-                    this.PRODUCT_MAN_COAT.map(function (item) {
+                    this.productSource.map(function (item) {
                         if (item.subcategory === 'furcoat'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'furcoat'
@@ -151,7 +160,7 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
-                    this.PRODUCT_MAN_COAT.map(function (item) {
+                    this.productSource.map(function (item) {
                         if (item.subcategory === 'coatm'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'coatm'
@@ -173,14 +182,14 @@
                 if (this.sortedCategories.length){
                     return this.sortedCategories
                 }else {
-                    return this.PRODUCT_MAN_COAT
+                    return this.productSource
                 }
             },
             selectedRed: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
 
                     if (item.color === 'red'){
                         vm.sortedCategories.push(item)
@@ -230,7 +239,7 @@
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
                     if (item.color === 'gray'){
                         vm.sortedCategories.push(item)
 
@@ -247,7 +256,7 @@
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
                     if (item.color === 'thistle'){
                         vm.sortedCategories.push(item)
 
@@ -264,7 +273,7 @@
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false;
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
                     if (item.color === 'blue'){
                         vm.sortedCategories.push(item)
 
@@ -282,8 +291,25 @@
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
                     if (item.color === 'violet'){
+                        vm.sortedCategories.push(item)
+
+                    }
+
+                })
+                if (vm.sortedCategories.length){
+                    return this.sortedCategoryStatus = false
+                }else{
+                    return this.sortedCategoryStatus = true
+                }
+            },
+            selectedSandyBrown: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                let vm = this;
+                this.productSource.map(function (item) {
+                    if (item.color === 'sandbrown'){
                         vm.sortedCategories.push(item)
 
                     }
@@ -317,7 +343,7 @@
                 } else {
 
 
-                    return this.PRODUCT_MAN_COAT
+                    return this.productSource
 
                 }
             },

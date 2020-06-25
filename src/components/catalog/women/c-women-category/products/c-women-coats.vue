@@ -22,7 +22,13 @@
             <button class="btn-choose-color"  @click="selectedThistle"><i style="color: thistle"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedBlue"><i style="color: blue"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedViolet"><i style="color: violet"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedSandyBrown"><i style="color: sandybrown"  class="fas fa-2x fa-tshirt"></i></button>
+
         </div>
+
+        <h5 class="sorted-category-status" >
+            Вы ищете {{ sortedSubCategoryNameRus + ' ' +  subCategoryColorStatus }}
+        </h5>
 
         <h2 class="sorted-category-status" v-if="sortedCategoryStatus === true">
             Товар данного цвета еще не поступил в продажу</h2>
@@ -73,6 +79,9 @@
                 sortedSubCategoryStatus: false,
                 selectedSubcategoryCoatAll: false,
                 sortedSubCategoryName: '',
+                sortedSubCategoryNameRus: 'Верхнюю одежду',
+                subCategoryColorStatus: 'Любого цвета',
+                chosenColor: ''
 
 
 
@@ -106,10 +115,13 @@
             //
             // },
             selectSubcategoryCoatAll(selectedSubcategoryCoatAll) {
-               if (selectedSubcategoryCoatAll === true){
-                   this.sortedCategories = []
-                   this.sortedSubCategoryStatus = false
-                   this.sortedSubCategoryName = ''
+                this.sortedCategories = []
+                this.chosenColor = ''
+                this.sortedSubCategoryName = ''
+                this.sortedSubCategoryStatus = false
+                this.sortedSubCategoryNameRus = 'Все типы верхней одежды'
+                if (selectedSubcategoryCoatAll === true){
+
                    if (this.sortedCategories.length){
                        return this.sortedCategories
                    }else {
@@ -124,13 +136,31 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
-                    this.PRODUCT_WOMAN_COAT.map(function (item) {
-                        if (item.subcategory === 'topcoat'){
-                            vm.sortedCategories.push(item)
-                            vm.sortedSubCategoryName = 'topcoat'
-                        }
+                    vm.sortedSubCategoryNameRus = 'Пальто'
+                    // если цвет выбран
+                    if (vm.chosenColor.length){
+                        vm.currentColor = vm.chosenColor //отдаем цвет в переменную
+                        this.PRODUCT_WOMAN_COAT.map(function (item) { //пробегаем по массиву
+                            if (item.subcategory === 'topcoat' && item.color === vm.currentColor){ //в масиве ищем все товары категории и заданного цвета
+                                vm.sortedCategories.push(item) //добавляем в масив все найденные
+                                vm.sortedSubCategoryName = 'topcoat' //название выбранной категории меняем на данную
+                                vm.sortedCategoryStatus = false // сообщение о отсутствии товара данного цвета скрыто
+                            }
 
-                    })
+
+                        })
+                    }else {
+                        this.PRODUCT_WOMAN_COAT.map(function (item) {
+                            if (item.subcategory === 'topcoat') {
+                                vm.sortedCategories.push(item)
+                                vm.sortedSubCategoryName = 'topcoat'
+                                vm.sortedCategoryStatus = false
+                            }
+
+                        })
+                    }
+
+
                     if (vm.sortedCategories.length){
                         return this.sortedSubCategoryStatus = false
                     }else{
@@ -144,10 +174,12 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
+                    vm.sortedSubCategoryNameRus = 'Пуховик'
                     this.PRODUCT_WOMAN_COAT.map(function (item) {
                         if (item.subcategory === 'downjacket'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'downjacket'
+
                         }
 
                     })
@@ -164,10 +196,12 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
+                    vm.sortedSubCategoryNameRus = 'Шубу'
                     this.PRODUCT_WOMAN_COAT.map(function (item) {
                         if (item.subcategory === 'furcoat'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'furcoat'
+
                         }
 
                     })
@@ -184,10 +218,12 @@
                     this.sortedSubCategoryName = ''
                     this.sortedSubCategoryStatus = false
                     let vm = this;
+                    vm.sortedSubCategoryNameRus = 'Куртку'
                     this.PRODUCT_WOMAN_COAT.map(function (item) {
                         if (item.subcategory === 'coatm'){
                             vm.sortedCategories.push(item)
                             vm.sortedSubCategoryName = 'coatm'
+
                         }
 
                     })
@@ -200,42 +236,49 @@
             },
             // Выбор по цветам
             selectedAll: function(event){
+                this.chosenColor = ''
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
-
+                this.subCategoryColorStatus = 'Любого цвета'
                 if (this.sortedCategories.length){
                     return this.sortedCategories
                 }else {
                     return this.PRODUCT_WOMAN_COAT
+
                 }
             },
             selectedRed: function (event) {
                 this.sortedCategories = []
+                this.chosenColor = 'red'
                 this.sortedCategoryStatus = false
                 let vm = this;
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
 
-                        if (item.color === 'red'){
+                    if (vm.sortedSubCategoryName.length){
+                        if (item.color === vm.chosenColor && item.subcategory === vm.sortedSubCategoryName){
                             vm.sortedCategories.push(item)
 
+                        }
+                    }else {
+                        if (item.color === vm.chosenColor ){
+                            vm.sortedCategories.push(item)
 
+                        }
                     }
 
+                        })
 
-               })
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+
+
             },
             selectedBlack: function (event) {
 
                 this.sortedCategories = []
 
-
+                this.chosenColor = 'black'
                 this.sortedCategoryStatus = false
                 let vm = this;
+                vm.subCategoryColorStatus = 'Черного цвета'
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
                             if (vm.sortedSubCategoryName.length){
                                 if (item.color === 'black' && item.subcategory === vm.sortedSubCategoryName){
@@ -249,10 +292,10 @@
                                 }
                             }
 
-
-
-
                 })
+                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                    return this.sortedCategoryStatus = true
+                }
                 if (vm.sortedCategories.length){
                     return this.sortedCategoryStatus = false
                 }else{
@@ -261,15 +304,19 @@
             },
             selectedGray: function (event) {
                 this.sortedCategories = []
+                this.chosenColor = 'gray'
                 this.sortedCategoryStatus = false
                 let vm = this;
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
                     if (item.color === 'gray'){
                         vm.sortedCategories.push(item)
-
+                        vm.subCategoryColorStatus = 'Серого цвета'
                     }
 
                 })
+                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                    return this.sortedCategoryStatus = true
+                }
                 if (vm.sortedCategories.length){
                     return this.sortedCategoryStatus = false
                 }else{
@@ -279,32 +326,39 @@
             selectedThistle: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
+                this.chosenColor = 'thistle'
                 let vm = this;
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
                     if (item.color === 'thistle'){
                         vm.sortedCategories.push(item)
-
+                        vm.subCategoryColorStatus = 'Пастельно-розового цвета'
                     }
 
                 })
+
                 if (vm.sortedCategories.length){
                     return this.sortedCategoryStatus = false
                 }else{
                     return this.sortedCategoryStatus = true
                 }
+
             },
             selectedBlue: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false;
+                this.chosenColor = 'blue'
                 let vm = this;
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
                     if (item.color === 'blue'){
                         vm.sortedCategories.push(item)
-
+                        vm.subCategoryColorStatus = 'Синего цвета'
                     }
 
 
                 })
+                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                    return this.sortedCategoryStatus = true
+                }
                 if (vm.sortedCategories.length){
                     return this.sortedCategoryStatus = false
                 }else{
@@ -314,14 +368,39 @@
             selectedViolet: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
+                this.chosenColor = 'violet'
                 let vm = this;
                 this.PRODUCT_WOMAN_COAT.map(function (item) {
                     if (item.color === 'violet'){
                         vm.sortedCategories.push(item)
-
+                        vm.subCategoryColorStatus = 'Розового цвета'
                     }
 
                 })
+                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                    return this.sortedCategoryStatus = true
+                }
+                if (vm.sortedCategories.length){
+                    return this.sortedCategoryStatus = false
+                }else{
+                    return this.sortedCategoryStatus = true
+                }
+            },
+            selectedSandyBrown: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'sandbrown'
+                let vm = this;
+                this.PRODUCT_WOMAN_COAT.map(function (item) {
+                    if (item.color === 'sandbrown'){
+                        vm.sortedCategories.push(item)
+                        vm.subCategoryColorStatus = 'Песочного цвета'
+                    }
+
+                })
+                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                    return this.sortedCategoryStatus = true
+                }
                 if (vm.sortedCategories.length){
                     return this.sortedCategoryStatus = false
                 }else{

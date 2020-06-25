@@ -1,7 +1,7 @@
 <template>
     <div class="m-coats">
         <div class="m-coats_container">
-            <router-link :to="{name: 'cm-coat'}">
+            <router-link :to="{name: 'cm-coats'}">
                 <img src="/images/coat/m-coat.png" alt="">
                 <p class="title">Верхняя одежда</p>
             </router-link>
