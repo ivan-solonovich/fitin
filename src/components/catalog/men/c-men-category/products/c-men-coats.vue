@@ -53,7 +53,7 @@
     import CMenCoatsItem from './c-men-coats-item'
     import {mapActions, mapGetters} from "vuex";
 
-    import CCoatsSubcategory from "../../../women/c-women-category/products/subgategories/c-coats-subcategory";
+    import CCoatsSubcategory from "../../../men/c-men-category/products/subgategories/c-coats-subcategory";
     export default {
         name: "c-men-coats",
         data() {
@@ -64,22 +64,19 @@
                 sortedSubCategoryStatus: false,
                 selectedSubcategoryCoatAll: false,
                 sortedSubCategoryName: '',
-                productSource: []
+
             }
         },
         props:{
             type: Object,
+
+
         },
         methods:{
             ...mapActions([
                 'GET_PRODUCTS_FROM_API',
             ]),
-            productSources: function(productSource){
 
-                this.productSource = this.PRODUCT_MAN_COAT
-
-
-            },
 
             selectSubcategoryCoatAll(selectedSubcategoryCoatAll) {
                 if (selectedSubcategoryCoatAll === true){
@@ -212,7 +209,7 @@
 
                 this.sortedCategoryStatus = false
                 let vm = this;
-                this.PRODUCT_MAN_COAT.map(function (item) {
+                this.productSource.map(function (item) {
                     if (vm.sortedSubCategoryName.length){
                         if (item.color === 'black' && item.subcategory === vm.sortedSubCategoryName){
                             vm.sortedCategories.push(item)
@@ -335,6 +332,9 @@
 
                 "PRODUCT_MAN_COAT"
             ]),
+            productSource: function(){
+                return this.$store.getters.PRODUCT_MAN_COAT
+            },
 
 
             filteredProducts: function () {
@@ -355,6 +355,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>

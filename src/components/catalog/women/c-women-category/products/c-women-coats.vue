@@ -15,15 +15,24 @@
 
             <!--Выбор товара по цвету-->
         <div class="select-color-button-aria">
-            <button class="btn-choose-color"  @click="selectedAll">Все товары</button>
+            <button class="btn-choose-color"  @click="selectedAll">{{ sortedSubCategoryNameRus }} всех цветов</button>
             <button class="btn-choose-color"  @click="selectedRed"><i style="color: red"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedViolet"><i style="color: violet"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedPurple"><i style="color: purple"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedMediumPurple"><i style="color: mediumpurple"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedBlue"><i style="color: royalblue"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedLightSeaGreen"><i style="color: LIGHTSEAGREEN"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedForestGreen"><i style="color: forestgreen"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedYellowGreen"><i style="color: yellowgreen"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedYellow"><i style="color: yellow"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedPeru"><i style="color: peru"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedOrange"><i style="color: orange"  class="fas fa-2x fa-tshirt"></i></button>
+            <button class="btn-choose-color"  @click="selectedSaddleBrown"><i style="color: saddlebrown"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedBlack"><i style="color: black"  class="fas fa-2x fa-tshirt"></i></button>
             <button class="btn-choose-color"  @click="selectedGray"><i style="color: gray"  class="fas fa-2x fa-tshirt"></i></button>
-            <button class="btn-choose-color"  @click="selectedThistle"><i style="color: thistle"  class="fas fa-2x fa-tshirt"></i></button>
-            <button class="btn-choose-color"  @click="selectedBlue"><i style="color: blue"  class="fas fa-2x fa-tshirt"></i></button>
-            <button class="btn-choose-color"  @click="selectedViolet"><i style="color: violet"  class="fas fa-2x fa-tshirt"></i></button>
-            <button class="btn-choose-color"  @click="selectedSandyBrown"><i style="color: sandybrown"  class="fas fa-2x fa-tshirt"></i></button>
 
+
+            <button class="btn-choose-color"  @click="selectedAll">Все {{ sortedSubCategoryNameRus }} этого цвета</button>
         </div>
 
         <h5 class="sorted-category-status" >
@@ -74,46 +83,26 @@
                 // ],
 
                 selected: 'ALL',
-                sortedCategories: [],
-                sortedCategoryStatus: false,
-                sortedSubCategoryStatus: false,
+                sortedCategories: [], // отфильтрованные данные
+                sortedCategoryStatus: false, // есть такой цвет в масиве
+                sortedSubCategoryStatus: false, // субкатегория товара
                 selectedSubcategoryCoatAll: false,
-                sortedSubCategoryName: '',
-                sortedSubCategoryNameRus: 'Верхнюю одежду',
-                subCategoryColorStatus: 'Любого цвета',
-                chosenColor: ''
-
-
-
+                sortedSubCategoryName: '', // имя субкатегории
+                sortedSubCategoryNameRus: 'Верхнюю одежду', //имя субкатегории по русски
+                subCategoryColorStatus: 'Любого цвета', // имя цвета по русски
+                chosenColor: '', // Имя выбранного цвета по умолчанию
+                subCategory: '' // субкатегория по умолчанию
             }
-
-
         },
         props:{
            type: Object,
-
-
         },
 
         methods:{
             ...mapActions([
                 'GET_PRODUCTS_FROM_API',
             ]),
-            // optionSelect(option){
-            //     this.selected = option.name
-            // },
-            // sortedByCategories: function (category,) {
-            //     this.sortedCategories = [];
-            //     let vm = this;
-            //
-            //     this.PRODUCT_WOMAN_COAT.map(function (item) {
-            //         if (item.color === category.value){
-            //             vm.sortedCategories.push(item);
-            //         }
-            //     })
-            //     this.selected = category.name
-            //
-            // },
+           // Выбор по субкатегории
             selectSubcategoryCoatAll(selectedSubcategoryCoatAll) {
                 this.sortedCategories = []
                 this.chosenColor = ''
@@ -122,90 +111,55 @@
                 this.sortedSubCategoryNameRus = 'Все типы верхней одежды'
                 if (selectedSubcategoryCoatAll === true){
 
-                   if (this.sortedCategories.length){
-                       return this.sortedCategories
-                   }else {
-                       return this.PRODUCT_WOMAN_COAT
-                   }
+                   return this.allSubcategory
                }
 
             },
             selectSubcategoryCoatTopcoat(selectedSubcategoryCoatTopcoat) {
                 if(selectedSubcategoryCoatTopcoat === true){
+
                     this.sortedCategories = []
-                    this.sortedSubCategoryName = ''
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'topcoat'
+                    this.sortedSubCategoryNameRus = 'Пальто'
                     this.sortedSubCategoryStatus = false
-                    let vm = this;
-                    vm.sortedSubCategoryNameRus = 'Пальто'
-                    // если цвет выбран
-                    if (vm.chosenColor.length){
-                        vm.currentColor = vm.chosenColor //отдаем цвет в переменную
-                        this.PRODUCT_WOMAN_COAT.map(function (item) { //пробегаем по массиву
-                            if (item.subcategory === 'topcoat' && item.color === vm.currentColor){ //в масиве ищем все товары категории и заданного цвета
-                                vm.sortedCategories.push(item) //добавляем в масив все найденные
-                                vm.sortedSubCategoryName = 'topcoat' //название выбранной категории меняем на данную
-                                vm.sortedCategoryStatus = false // сообщение о отсутствии товара данного цвета скрыто
-                            }
 
-
-                        })
-                    }else {
-                        this.PRODUCT_WOMAN_COAT.map(function (item) {
-                            if (item.subcategory === 'topcoat') {
-                                vm.sortedCategories.push(item)
-                                vm.sortedSubCategoryName = 'topcoat'
-                                vm.sortedCategoryStatus = false
-                            }
-
-                        })
-                    }
-
-
-                    if (vm.sortedCategories.length){
-                        return this.sortedSubCategoryStatus = false
+                    if (this.selectSubCategory.length){
+                         this.sortedSubCategoryStatus = false
                     }else{
-                        return this.sortedSubCategoryStatus = true
+                         this.sortedSubCategoryStatus = true
                     }
-                }
+
+                    return this.selectSubCategory
+
+
+                     }
             },
             selectSubcategoryCoatDownJacket(selectedSubcategoryCoatDownJacket){
                 if(selectedSubcategoryCoatDownJacket === true){
                     this.sortedCategories = []
-                    this.sortedSubCategoryName = ''
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'downjacket'
+                    this.sortedSubCategoryNameRus = 'Пуховики'
                     this.sortedSubCategoryStatus = false
-                    let vm = this;
-                    vm.sortedSubCategoryNameRus = 'Пуховик'
-                    this.PRODUCT_WOMAN_COAT.map(function (item) {
-                        if (item.subcategory === 'downjacket'){
-                            vm.sortedCategories.push(item)
-                            vm.sortedSubCategoryName = 'downjacket'
-
-                        }
-
-                    })
-                    if (vm.sortedCategories.length){
-                        return this.sortedSubCategoryStatus = false
+                    if (this.selectSubCategory.length){
+                         this.sortedSubCategoryStatus = false
                     }else{
-                        return this.sortedSubCategoryStatus = true
+                         this.sortedSubCategoryStatus = true
                     }
+                    return this.selectSubCategory
+
                 }
             },
             selectSubcategoryCoatFurCoat(selectedSubcategoryCoatFurCoat) {
                 if(selectedSubcategoryCoatFurCoat === true){
                     this.sortedCategories = []
-                    this.sortedSubCategoryName = ''
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'furcoat'
                     this.sortedSubCategoryStatus = false
-                    let vm = this;
-                    vm.sortedSubCategoryNameRus = 'Шубу'
-                    this.PRODUCT_WOMAN_COAT.map(function (item) {
-                        if (item.subcategory === 'furcoat'){
-                            vm.sortedCategories.push(item)
-                            vm.sortedSubCategoryName = 'furcoat'
+                    this.sortedSubCategoryNameRus = 'Шубы'
 
-                        }
-
-                    })
-                    if (vm.sortedCategories.length){
+                    if (this.selectSubCategory.length){
                         return this.sortedSubCategoryStatus = false
                     }else{
                         return this.sortedSubCategoryStatus = true
@@ -215,19 +169,20 @@
             selectSubcategoryCoatCoatM(selectedSubcategoryCoatCoatM) {
                 if(selectedSubcategoryCoatCoatM === true){
                     this.sortedCategories = []
-                    this.sortedSubCategoryName = ''
+                    this.sortedSubCategoryName = 'coatm'
                     this.sortedSubCategoryStatus = false
-                    let vm = this;
-                    vm.sortedSubCategoryNameRus = 'Куртку'
-                    this.PRODUCT_WOMAN_COAT.map(function (item) {
-                        if (item.subcategory === 'coatm'){
-                            vm.sortedCategories.push(item)
-                            vm.sortedSubCategoryName = 'coatm'
-
-                        }
-
-                    })
-                    if (vm.sortedCategories.length){
+                    this.sortedSubCategoryNameRus = 'Куртки'
+                    // let vm = this;
+                    //
+                    // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                    //     if (item.subcategory === 'coatm'){
+                    //         vm.sortedCategories.push(item)
+                    //         vm.sortedSubCategoryName = 'coatm'
+                    //
+                    //     }
+                    //
+                    // })
+                    if (this.selectSubCategory.length){
                         return this.sortedSubCategoryStatus = false
                     }else{
                         return this.sortedSubCategoryStatus = true
@@ -243,7 +198,7 @@
                 if (this.sortedCategories.length){
                     return this.sortedCategories
                 }else {
-                    return this.PRODUCT_WOMAN_COAT
+                    return this.productSource
 
                 }
             },
@@ -251,22 +206,48 @@
                 this.sortedCategories = []
                 this.chosenColor = 'red'
                 this.sortedCategoryStatus = false
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //
+                //     if (vm.sortedSubCategoryName.length){
+                //         if (item.color === vm.chosenColor && item.subcategory === vm.sortedSubCategoryName){
+                //             vm.sortedCategories.push(item)
+                //
+                //         }
+                //     }else {
+                //         if (item.color === vm.chosenColor ){
+                //             vm.sortedCategories.push(item)
+                //
+                //         }
+                //     }
+                //
+                //         })
 
-                    if (vm.sortedSubCategoryName.length){
-                        if (item.color === vm.chosenColor && item.subcategory === vm.sortedSubCategoryName){
-                            vm.sortedCategories.push(item)
 
-                        }
-                    }else {
-                        if (item.color === vm.chosenColor ){
-                            vm.sortedCategories.push(item)
 
-                        }
-                    }
-
-                        })
+            },
+            selectedYellow: function (event) {
+                this.sortedCategories = []
+                this.chosenColor = 'yellow'
+                this.sortedCategoryStatus = false
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //
+                //     if (vm.sortedSubCategoryName.length){
+                //         if (item.color === vm.chosenColor && item.subcategory === vm.sortedSubCategoryName){
+                //             vm.sortedCategories.push(item)
+                //
+                //         }
+                //     }else {
+                //         if (item.color === vm.chosenColor ){
+                //             vm.sortedCategories.push(item)
+                //
+                //         }
+                //     }
+                //
+                //         })
 
 
 
@@ -274,141 +255,315 @@
             selectedBlack: function (event) {
 
                 this.sortedCategories = []
-
+                this.subCategoryColorStatus = 'Черного цвета'
                 this.chosenColor = 'black'
                 this.sortedCategoryStatus = false
-                let vm = this;
-                vm.subCategoryColorStatus = 'Черного цвета'
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                            if (vm.sortedSubCategoryName.length){
-                                if (item.color === 'black' && item.subcategory === vm.sortedSubCategoryName){
-                                    vm.sortedCategories.push(item)
-
-                                }
-                            }else {
-                                if (item.color === 'black' ){
-                                    vm.sortedCategories.push(item)
-
-                                }
-                            }
-
-                })
-                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
-                    return this.sortedCategoryStatus = true
-                }
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+                return this.selectSubCategory
+                // let vm = this;
+                //
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //             if (vm.sortedSubCategoryName.length){
+                //                 if (item.color === 'black' && item.subcategory === vm.sortedSubCategoryName){
+                //                     vm.sortedCategories.push(item)
+                //
+                //                 }
+                //             }else {
+                //                 if (item.color === 'black' ){
+                //                     vm.sortedCategories.push(item)
+                //
+                //                 }
+                //             }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
             },
             selectedGray: function (event) {
                 this.sortedCategories = []
                 this.chosenColor = 'gray'
+                this.subCategoryColorStatus = 'Серого цвета'
                 this.sortedCategoryStatus = false
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    if (item.color === 'gray'){
-                        vm.sortedCategories.push(item)
-                        vm.subCategoryColorStatus = 'Серого цвета'
-                    }
-
-                })
-                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
-                    return this.sortedCategoryStatus = true
-                }
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+                return this.selectSubCategory
+                 // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'gray'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Серого цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (this.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
             },
-            selectedThistle: function (event) {
+            selectedLightSeaGreen: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
-                this.chosenColor = 'thistle'
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    if (item.color === 'thistle'){
-                        vm.sortedCategories.push(item)
-                        vm.subCategoryColorStatus = 'Пастельно-розового цвета'
-                    }
+                this.chosenColor = 'lightseagreen'
+                this.subCategoryColorStatus = 'сине-зеленого'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'thistle'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Пастельно-розового цвета'
+                //     }
+                //
+                // })
 
-                })
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
 
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+            },
+            selectedForestGreen: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'forestgreen'
+                this.subCategoryColorStatus = 'сине-зеленого'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'thistle'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Пастельно-розового цвета'
+                //     }
+                //
+                // })
+
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+
+            },
+            selectedYellowGreen: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'yellowgreen'
+                this.subCategoryColorStatus = 'сине-зеленого'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'thistle'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Пастельно-розового цвета'
+                //     }
+                //
+                // })
+
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
 
             },
             selectedBlue: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false;
-                this.chosenColor = 'blue'
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    if (item.color === 'blue'){
-                        vm.sortedCategories.push(item)
-                        vm.subCategoryColorStatus = 'Синего цвета'
-                    }
-
-
-                })
-                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
-                    return this.sortedCategoryStatus = true
-                }
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+                this.chosenColor = 'royalblue'
+                this.subCategoryColorStatus = 'Синего цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'blue'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Синего цвета'
+                //     }
+                //
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
             },
             selectedViolet: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 this.chosenColor = 'violet'
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    if (item.color === 'violet'){
-                        vm.sortedCategories.push(item)
-                        vm.subCategoryColorStatus = 'Розового цвета'
-                    }
-
-                })
-                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
-                    return this.sortedCategoryStatus = true
-                }
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+                this.subCategoryColorStatus = 'Розового цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'violet'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Розового цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
             },
             selectedSandyBrown: function (event) {
                 this.sortedCategories = []
                 this.sortedCategoryStatus = false
                 this.chosenColor = 'sandbrown'
-                let vm = this;
-                this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    if (item.color === 'sandbrown'){
-                        vm.sortedCategories.push(item)
-                        vm.subCategoryColorStatus = 'Песочного цвета'
-                    }
-
-                })
-                if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
-                    return this.sortedCategoryStatus = true
-                }
-                if (vm.sortedCategories.length){
-                    return this.sortedCategoryStatus = false
-                }else{
-                    return this.sortedCategoryStatus = true
-                }
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+            },
+            selectedOrange: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'orange'
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+            },
+            selectedPeru: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'peru'
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+            },
+            selectedPurple: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'purple'
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+            },
+            selectedMediumPurple: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'mediumpurple'
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
+            },
+            selectedSaddleBrown: function (event) {
+                this.sortedCategories = []
+                this.sortedCategoryStatus = false
+                this.chosenColor = 'saddlebrown'
+                this.subCategoryColorStatus = 'Песочного цвета'
+                return this.selectSubCategory
+                // let vm = this;
+                // this.PRODUCT_WOMAN_COAT.map(function (item) {
+                //     if (item.color === 'sandbrown'){
+                //         vm.sortedCategories.push(item)
+                //         vm.subCategoryColorStatus = 'Песочного цвета'
+                //     }
+                //
+                // })
+                // if (vm.sortedSubCategoryName.length && vm.sortedCategories <= 0){
+                //     return this.sortedCategoryStatus = true
+                // }
+                // if (vm.sortedCategories.length){
+                //     return this.sortedCategoryStatus = false
+                // }else{
+                //     return this.sortedCategoryStatus = true
+                // }
             },
 
+
+
         },
+
+
         components:{
             CWomenCoatsItem,
             CPresentWrapper,
@@ -422,6 +577,127 @@
 
                "PRODUCT_WOMAN_COAT"
             ]),
+                //Передаем геттер с выбранным товарам в переменную
+            productSource: function(){
+                return this.$store.getters.PRODUCT_WOMAN_COAT
+            },
+
+            allSubcategory: function(){
+                if (this.sortedCategories.length){
+                    return this.sortedCategories
+                }else {
+                    return this.productSource
+                }
+            },
+
+            selectSubCategory: function(){
+
+
+                let vm = this
+                vm.sortedCategories = []
+                // Проверка при загрузке
+                if(vm.sortedCategories.length === 0 && vm.sortedSubCategoryName.length === 0 && vm.chosenColor.length === 0){
+                    return this.productSource // Если ничего не выбрано возвращаем все продукты
+                }
+
+                // Проверка
+                if(vm.sortedSubCategoryName.length > 0 && vm.chosenColor.length > 0){ //если выбран цвет и субкатегория
+                    this.productSource.map(function (item) {
+                        if(item.subcategory === vm.sortedSubCategoryName && item.color === vm.chosenColor){
+                            vm.sortedCategories.push(item) // кладем в масив все найденные товары
+                            }
+                    })
+                        if (vm.sortedCategories.length > 0){ // Если есть товары в данного цвета и категоии
+                            return vm.sortedCategories // Возвращаем эти товары
+                        } else { // Если товаров нет
+                            if (vm.sortedCategories.length === 0 && vm.chosenColor.length > 0){ //Если товаров в субкатегории нет но выбран цвет
+                                vm.sortedCategories = []
+                                this.productSource.map(function (item) {
+                                    if( item.color === vm.chosenColor){ //Ищем товары данношо цвета
+                                        vm.sortedCategories.push(item) // кладем в масив все найденные товары
+                                    }
+                                })
+
+                                if (vm.sortedCategories.length){ //Если товар выдранного цвета нашелся
+                                    return vm.sortedCategories, //Вернуть найденный товар выбранной категории
+                                        vm.sortedSubCategoryStatus = true //Сообщение об отсуствии товара данной категории //Вернуть найденный товар выбранного цвета
+                                }else if(vm.sortedCategories.length === 0 && vm.sortedSubCategoryName.length >0){
+                                    vm.sortedCategories = []
+                                    this.productSource.map(function (item) {
+                                        if(item.subcategory === vm.sortedSubCategoryName ){
+                                            vm.sortedCategories.push(item)
+
+                                        }
+
+                                    })
+                                    if (vm.sortedCategories.length){ //Если товар данной категории нашелся
+
+                                        return vm.sortedCategories, //Вернуть найденный товар выбранной категории
+                                            vm.sortedCategoryStatus = true //Сообщение об отсуствии товара данного цвета
+                                    }else {
+                                        vm.sortedSubCategoryStatus = true
+                                        vm.sortedCategoryStatus = true
+                                        return this.productSource
+                                    }
+                                }
+                            }else if(vm.sortedCategories.length === 0 && vm.sortedSubCategoryName.length >0){
+                                this.productSource.map(function (item) {
+                                    if(item.subcategory === vm.sortedSubCategoryName ){
+                                        vm.sortedCategories.push(item)
+
+                                    }
+
+                                })
+                                if (vm.sortedCategories.length){ //Если товар данной категории нашелся
+
+                                    return vm.sortedCategories, //Вернуть найденный товар выбранной категории
+                                     vm.sortedCategoryStatus = true //Сообщение об отсуствии товара данного цвета
+                                }else {
+                                    vm.sortedSubCategoryStatus = true
+                                    vm.sortedCategoryStatus = true
+                                    return this.productSource
+                                }
+                            }
+
+                            return this.productSource
+                        }
+                }else if(vm.sortedSubCategoryName.length > 0 ){ // если выбрана только субкатегория
+                     this.productSource.map(function (item) {
+                        if(item.subcategory === vm.sortedSubCategoryName ){
+                            vm.sortedCategories.push(item)
+
+                        }
+
+                    })
+                    if(vm.sortedCategories.length){ // Если есть товары в субкатегории
+                         return vm.sortedCategories // Возвращаем эти товары
+                    }else{ // Если товаров нет возвращаем сообщение
+                        return vm.sortedSubCategoryStatus = true
+
+
+                    }
+
+                }else if(vm.chosenColor.length > 0 ){ // Если выбран только цвет
+                     this.productSource.map(function (item) {
+                        if(item.color === vm.chosenColor ){
+                            vm.sortedCategories.push(item)
+
+                        }
+                    })
+                    if(vm.sortedCategories.length > 0 ){ // Если есть товары в субкатегории
+                        return vm.sortedCategories // Возвращаем эти товары
+                    }else{ // Если товаров нет возвращаем сообщение
+
+                        return vm.sortedCategoryStatus = true
+                    }
+                }else{
+
+                    return this.productSource
+
+                }
+
+
+            },
 
 
 
@@ -431,7 +707,7 @@
                 }else {
 
 
-                    return this.PRODUCT_WOMAN_COAT
+                    return this.productSource
 
                 }
             },
