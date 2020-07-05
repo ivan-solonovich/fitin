@@ -23,7 +23,9 @@
     export default {
         name: "c-color-select",
         data() {
-            return {}
+            return {
+
+            }
         },
 
         methods:{
