@@ -1,33 +1,33 @@
 <template>
-    <div class="c-coats-subcategory">
-        <div @click="selectSubcategoryAll()" class="c-coats-subcategory_coat">
+    <div class="c-caps-subcategory">
+        <div @click="selectSubcategoryAll()" class="c-caps-subcategory_cap">
             <img src="/images/coat/all/all-w-coat.png" alt="">
             <div class="c-coats-subcategory_coat_title">
                 <h3>Все категории</h3>
             </div>
         </div>
-        <div @click="selectSubcategoryCoatTopcoat()" class="c-coats-subcategory_topcoat">
-            <img src="/images/coat/topcoat/w-topcoat.png" alt="">
+        <div @click="selectSubcategoryCapBaseball()" class="c-caps-subcategory_baseball">
+            <img src="/images/cap/baseball/w-baseball.png" alt="">
             <div class="c-coats-subcategory_topcoat_title">
-                <h3>Пальто</h3>
+                <h3>Бейсболки</h3>
             </div>
         </div>
-        <div @click="selectSubcategoryCoatDownJacket()" class="c-coats-subcategory_downjacket">
-            <img src="/images/coat/downjacket/w-downjacket.png" alt="">
+        <div @click="selectSubcategoryCapNapper()" class="c-caps-subcategory_napper">
+            <img src="/images/cap/napper/w-napper.png" alt="">
             <div class="c-coats-subcategory_downjacket_title">
-                <h3>Пуховики</h3>
+                <h3>С полями</h3>
             </div>
         </div>
-        <div @click="selectSubcategoryCoatFurCoat()" class="c-coats-subcategory_furcoat">
-            <img src="/images/coat/furcoat/w-furcoat.png" alt="">
+        <div @click="selectSubcategoryCapWinter()" class="c-caps-subcategory_winter">
+            <img src="/images/cap/winter/w-winter.png" alt="">
             <div class="c-coats-subcategory_furcoat_title">
-                <h3>Шубы</h3>
+                <h3>Зимние</h3>
             </div>
         </div>
-        <div @click="selectSubcategoryCoatCoatM()" class="c-coats-subcategory_w-coatm">
-            <img src="/images/coat/coat/w-coatm.png" alt="">
+        <div @click="selectSubcategoryCapBeret()" class="c-caps-subcategory_beret">
+            <img src="/images/cap/beret/beret.png" alt="">
             <div class="c-coats-subcategory_w-coatm_title">
-                <h3>Куртки</h3>
+                <h3>Береты</h3>
             </div>
         </div>
     </div>
@@ -35,13 +35,14 @@
 
 <script>
     export default {
-        name: "c-coats-subcategory",
+        name: "c-caps-subcategory",
         data() {
             return {
                 selectedSubcategoryAll: false,
-                selectedSubcategoryCoatTopcoat: false,
-                selectedSubcategoryCoatDownJacket: false,
-                selectedSubcategoryCoatFurCoat: false
+                selectedSubcategoryCapBaseball: false,
+                selectedSubcategoryCapNapper: false,
+                selectedSubcategoryCapWinter: false,
+                selectedSubcategoryCapBeret: false
             }
         },
         methods: {
@@ -50,24 +51,24 @@
                 return  this.$emit('selectedSubcategoryAll', this.selectedSubcategoryAll)
 
             },
-            selectSubcategoryCoatTopcoat(){
-                this.selectedSubcategoryCoatTopcoat = true
-                return  this.$emit('selectedSubcategoryCoatTopcoat', this.selectedSubcategoryCoatTopcoat)
+            selectSubcategoryCapBaseball(){
+                this.selectedSubcategoryCapBaseball = true
+                return  this.$emit('selectedSubcategoryCapBaseball', this.selectedSubcategoryCapBaseball)
 
             },
-            selectSubcategoryCoatDownJacket(){
-                this.selectedSubcategoryCoatDownJacket = true
-                return  this.$emit('selectedSubcategoryCoatDownJacket', this.selectedSubcategoryCoatDownJacket)
+            selectSubcategoryCapNapper(){
+                this.selectedSubcategoryCapNapper = true
+                return  this.$emit('selectedSubcategoryCapNapper', this.selectedSubcategoryCapNapper)
 
             },
-            selectSubcategoryCoatFurCoat(){
-                this.selectedSubcategoryCoatFurCoat = true
-                return  this.$emit('selectedSubcategoryCoatFurCoat', this.selectedSubcategoryCoatFurCoat)
+            selectSubcategoryCapWinter(){
+                this.selectedSubcategoryCapWinter = true
+                return  this.$emit('selectedSubcategoryCapWinter', this.selectedSubcategoryCapWinter)
 
             },
-            selectSubcategoryCoatCoatM(){
-                this.selectedSubcategoryCoatCoatM = true
-                return  this.$emit('selectedSubcategoryCoatCoatM', this.selectedSubcategoryCoatCoatM)
+            selectSubcategoryCapBeret(){
+                this.selectedSubcategoryCapBeret = true
+                return  this.$emit('selectedSubcategoryCapBeret', this.selectedSubcategoryCapBeret)
 
             },
         }
@@ -75,7 +76,7 @@
 </script>
 
 <style lang="scss">
-        .c-coats-subcategory {
+        .c-caps-subcategory {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
@@ -83,7 +84,7 @@
             width: 100%;
             cursor: pointer;
 
-            &_coat {
+            &_cap {
                 background-color: #ffdd99;
                 display: flex;
                 justify-content: space-around;
@@ -98,7 +99,7 @@
 
             }
 
-            &_topcoat {
+            &_baseball {
                 background-color: #e0e5e9;
                 display: flex;
                 justify-content: space-around;
@@ -113,7 +114,7 @@
 
             }
 
-            &_downjacket {
+            &_napper {
                 background-color: #ffccb3;
                 display: flex;
                 justify-content: space-around;
@@ -127,7 +128,7 @@
                 }
 
             }
-            &_furcoat {
+            &_winter {
                 background-color: #5fccb3;
                 display: flex;
                 justify-content: space-around;
@@ -141,7 +142,7 @@
                 }
 
             }
-            &_w-coatm {
+            &_beret {
                 background-color: #9999ff;
                 display: flex;
                 justify-content: space-around;

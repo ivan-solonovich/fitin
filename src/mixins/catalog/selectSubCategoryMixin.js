@@ -5,15 +5,52 @@ export const selectSubCategory = {
             sortedCategories: [], // отфильтрованные данные
             sortedCategoryStatus: false, // есть такой цвет в масиве
             sortedSubCategoryStatus: false, // субкатегория товара
-            selectedSubcategoryCoatAll: false,
+            selectedSubcategoryAll: false,
             sortedSubCategoryName: '', // имя субкатегории
-            sortedSubCategoryNameRus: 'Верхнюю одежду', //имя субкатегории по русски
+            sortedSubCategoryNameRus: '', //имя субкатегории по русски
             subCategoryColorStatus: 'Любого цвета', // имя цвета по русски
             chosenColor: '', // Имя выбранного цвета по умолчанию
             subCategory: '' // субкатегория по умолчанию
         }
     },
+    methods:{
+        selectSubcategoryAll(selectedSubcategoryAll) {
+            this.sortedCategories = []
+            this.chosenColor = ''
+            this.sortedSubCategoryName = ''
+            this.sortedSubCategoryStatus = false
+            this.sortedSubCategoryNameRus = 'Все типы '
+            if (selectedSubcategoryAll === true){
+
+                return this.allSubcategory
+            }
+
+        },
+        selectedAll: function(){
+            this.chosenColor = ''
+            this.sortedCategories = []
+            this.sortedCategoryStatus = false
+            this.subCategoryColorStatus = 'Любого цвета'
+            let currentSubCategory = this.sortedSubCategoryName
+            let vm = this
+            this.productSource.map(function (item) {
+                if(item.subcategory === vm.sortedSubCategoryName ){
+                    vm.sortedCategories.push(item)
+
+                }
+
+            })
+
+            if (this.sortedCategories.length){
+                return this.sortedCategories
+            }else {
+                return this.productSource, this.sortedSubCategoryStatus = false
+
+            }
+        },
+    },
     computed:{
+
         selectSubCategory: function(){
 
 
@@ -127,6 +164,14 @@ export const selectSubCategory = {
 
 
         },
+        allSubcategory: function(){
+            if (this.sortedCategories.length){
+                return this.sortedCategories
+            }else {
+                return this.productSource
+            }
+        },
     },
+
 
 }

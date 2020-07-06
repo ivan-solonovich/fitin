@@ -4,6 +4,7 @@ import App from './App.vue'
 
 import store from './vuex/store'
 import router from './router/router';
+import { EventBus } from "./event-bus/event-bus";
 //Animation
 import { gsap } from 'gsap'
 import anim from 'css-animation';
@@ -23,5 +24,6 @@ new Vue({
   anim,
   fonts,
   gsap,
+  EventBus
 
 }).$mount('#app')

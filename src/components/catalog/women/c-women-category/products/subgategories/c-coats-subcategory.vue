@@ -1,6 +1,6 @@
 <template>
     <div class="c-coats-subcategory">
-        <div @click="selectSubcategoryCoatAll()" class="c-coats-subcategory_coat">
+        <div @click="selectSubcategoryAll()" class="c-coats-subcategory_coat">
             <img src="/images/coat/all/all-w-coat.png" alt="">
             <div class="c-coats-subcategory_coat_title">
                 <h3>Все категории</h3>
@@ -38,16 +38,16 @@
         name: "c-coats-subcategory",
         data() {
             return {
-                selectedSubcategoryCoatAll: false,
+                selectedSubcategoryAll: false,
                 selectedSubcategoryCoatTopcoat: false,
                 selectedSubcategoryCoatDownJacket: false,
                 selectedSubcategoryCoatFurCoat: false
             }
         },
         methods: {
-            selectSubcategoryCoatAll(){
-                this.selectedSubcategoryCoatAll = true
-                return  this.$emit('selectedSubcategoryCoatAll', this.selectedSubcategoryCoatAll)
+            selectSubcategoryAll(){
+                this.selectedSubcategoryAll = true
+                return  this.$emit('selectedSubcategoryAll', this.selectedSubcategoryAll)
 
             },
             selectSubcategoryCoatTopcoat(){
