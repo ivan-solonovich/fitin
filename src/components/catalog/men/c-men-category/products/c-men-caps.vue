@@ -1,13 +1,15 @@
 <template>
     <div class="c-products-wrapper">
         <c-present-wrapper></c-present-wrapper>
-        <c-link-to-women-template></c-link-to-women-template>
-        <c-shoes-subcategory
+        <c-link-to-men-template></c-link-to-men-template>
+
+
+        <c-caps-subcategory
                 @selectedSubcategoryAll="selectSubcategoryAll"
-                @selectedSubcategorySneakers="selectSubcategorySneakers"
-                @selectedSubcategoryBallet="selectSubcategoryBallet"
-                @selectedSubcategorySandals="selectSubcategorySandals"
-                @selectedSubcategoryBoots="selectSubcategoryBoots"
+                @selectedSubcategoryCapBaseball="selectSubcategoryCapBaseball"
+                @selectedSubcategoryCapNapper="selectSubcategoryCapNapper"
+                @selectedSubcategoryCapWinter="selectSubcategoryCapWinter"
+                @selectedSubcategoryCapBeret="selectSubcategoryCapBeret"
         />
         <c-color-picker/>
         <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
@@ -19,8 +21,9 @@
 
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
+
         <div class="card-container">
-            <c-women-shoes-item
+            <c-men-caps-item
                     v-for="product in filteredProducts"
                     :key="product.article"
                     v-bind:product_data="product"
@@ -34,74 +37,84 @@
 
 <script>
     import CPresentWrapper from '../../../c-present-wrapper'
-    import CWomenShoesItem from './c-women-shoes-item'
-    import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
+    import CMenCapsItem from './c-men-caps-item'
+    import CLinkToMenTemplate from './cards-template/c-link-to-men-template'
     import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
     import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
-    import CShoesSubcategory from './subgategories/c-shoes-subcategory'
-
+    import { mapGetters} from 'vuex'
+    import { colorPicker } from "../../../../../mixins/catalog/color-picker-mixin";
     import CColorPicker from "../../../c-color-picker";
-    import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
+    import CCapsSubcategory from '../products/subgategories/c-caps-subcategory'
     export default {
-        name: "c-women-shoes",
-        data() {
-            return {
-                sortedSubCategoryNameRus: 'Обувь', //имя субкатегории по русски
+        name: "c-men-caps",
+        data(){
+            return{
+                sortedSubCategoryNameRus: 'Головные уборы', //имя субкатегории по русски
             }
-
         },
+
         mixins: [baseFunctionality, selectSubCategory, colorPicker],
-        components:{
-            CWomenShoesItem,
-            CPresentWrapper,
-            CLinkToWomenTemplate,
-            CShoesSubcategory,
-            CColorPicker,
-        },
+
         methods:{
-            selectSubcategorySneakers(selectedSubcategorySneakers) {
-                if(selectedSubcategorySneakers === true){
+            selectSubcategoryCapBaseball(selectedSubcategoryCapBaseball) {
+                if(selectedSubcategoryCapBaseball === true){
 
                     this.sortedCategories = []
                     this.chosenColor = ''
-                    this.sortedSubCategoryName = 'sneakers'
-                    this.sortedSubCategoryNameRus = 'Кроссовки'
+                    this.sortedSubCategoryName = 'baseball'
+                    this.sortedSubCategoryNameRus = 'Бейсболки'
                     this.sortedSubCategoryStatus = false
+                    return this.selectSubCategory
+                    // if (this.selectSubCategory.length){
+                    //      this.sortedSubCategoryStatus = false
+                    // }else{
+                    //      this.sortedSubCategoryStatus = true
+                    // }
+                    //
+
+                    //
+                    //
+                }
+            },
+            selectSubcategoryCapNapper(selectedSubcategoryCapNapper){
+                if(selectedSubcategoryCapNapper === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'Napper'
+                    this.sortedSubCategoryNameRus = 'С полями'
+                    this.sortedSubCategoryStatus = false
+                    // if (this.selectSubCategory.length){
+                    //      this.sortedSubCategoryStatus = false
+                    // }else{
+                    //      this.sortedSubCategoryStatus = true
+                    // }
                     return this.selectSubCategory
 
                 }
             },
-            selectSubcategoryBallet(selectedSubcategoryBallet){
-                if(selectedSubcategoryBallet === true){
+            selectSubcategoryCapWinter(selectedSubcategoryCapWinter) {
+                if(selectedSubcategoryCapWinter === true){
                     this.sortedCategories = []
                     this.chosenColor = ''
-                    this.sortedSubCategoryName = 'ballet'
-                    this.sortedSubCategoryNameRus = 'Балетки'
+                    this.sortedSubCategoryName = 'winter'
                     this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Зимние'
 
-                    return this.selectSubCategory
-
-                }
-            },
-            selectSubcategorySandals(selectedSubcategorySandals) {
-                if(selectedSubcategorySandals === true){
-                    this.sortedCategories = []
-                    this.chosenColor = ''
-                    this.sortedSubCategoryName = 'sandals'
-                    this.sortedSubCategoryStatus = false
-                    this.sortedSubCategoryNameRus = 'Босоножки'
-
-
+                    // if (this.selectSubCategory.length){
+                    //     return this.sortedSubCategoryStatus = false
+                    // }else{
+                    //     return this.sortedSubCategoryStatus = true
+                    // }
                     return this.selectSubCategory
                 }
             },
-            selectSubcategoryBoots(selectedSubcategoryBoots) {
-                if(selectedSubcategoryBoots === true){
+            selectSubcategoryCapBeret(selectedSubcategoryCapBeret) {
+                if(selectedSubcategoryCapBeret === true){
                     this.sortedCategories = []
                     this.chosenColor = ''
-                    this.sortedSubCategoryName = 'boots'
+                    this.sortedSubCategoryName = 'beret'
                     this.sortedSubCategoryStatus = false
-                    this.sortedSubCategoryNameRus = 'Сапоги'
+                    this.sortedSubCategoryNameRus = 'Береты'
                     // let vm = this;
                     //
                     // this.PRODUCT_WOMAN_COAT.map(function (item) {
@@ -122,19 +135,30 @@
             },
 
         },
-
+        components:{
+            CColorPicker,
+            CMenCapsItem,
+            CPresentWrapper,
+            CLinkToMenTemplate,
+            CCapsSubcategory
+        },
         computed: {
+            ...mapGetters([
 
+                "PRODUCT_MAN_CAP"
+            ]),
+            //Передаем геттер с выбранным товарам в переменную
             productSource: function(){
-                return this.$store.getters.PRODUCT_WOMAN_SHOES
+                return this.$store.getters.PRODUCT_MAN_CAP
             },
 
         },
-
 
     }
 </script>
 
 <style lang="scss">
+    @import "src/assets/styles/styles";
+
 
 </style>

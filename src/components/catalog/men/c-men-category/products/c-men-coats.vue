@@ -24,7 +24,8 @@
         </h3>
 
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
-            Товар данного типа еще не поступил в продажу</h2>
+            Товар данного типа еще не поступил в продажу
+        </h2>
 
         <div class="card-container">
 
@@ -73,15 +74,7 @@
                     this.sortedSubCategoryNameRus = 'Пальто'
                     this.sortedSubCategoryStatus = false
                     return this.selectSubCategory
-                    // if (this.selectSubCategory.length){
-                    //      this.sortedSubCategoryStatus = false
-                    // }else{
-                    //      this.sortedSubCategoryStatus = true
-                    // }
-                    //
 
-                    //
-                    //
                 }
             },
             selectSubcategoryCoatDownJacket(selectedSubcategoryCoatDownJacket){
@@ -123,21 +116,7 @@
                     this.sortedSubCategoryName = 'coatm'
                     this.sortedSubCategoryStatus = false
                     this.sortedSubCategoryNameRus = 'Куртки'
-                    // let vm = this;
-                    //
-                    // this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    //     if (item.subcategory === 'coatm'){
-                    //         vm.sortedCategories.push(item)
-                    //         vm.sortedSubCategoryName = 'coatm'
-                    //
-                    //     }
-                    //
-                    // })
-                    // if (this.selectSubCategory.length){
-                    //     return this.sortedSubCategoryStatus = false
-                    // }else{
-                    //     return this.sortedSubCategoryStatus = true
-                    // }
+
                     return this.selectSubCategory
                 }
             },

@@ -2,17 +2,33 @@
     <div class="c-products-wrapper">
         <c-present-wrapper></c-present-wrapper>
         <c-link-to-women-template></c-link-to-women-template>
+        <c-tshirt-subcategory
+                @selectedSubcategoryAll="selectSubcategoryAll"
+                @selectedSubcategoryTshirt="selectSubcategoryTshirt"
+                @selectedSubcategorySleeveless="selectSubcategorySleeveless"
+                @selectedSubcategoryOverShoulder="selectSubcategoryOverShoulder"
 
+        />
+        <c-color-picker/>
+        <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
+            Товар данного цвета еще не поступил в продажу
+            <br> <span>  <button class="btn-choose-color"  @click="selectedAll">{{ sortedSubCategoryNameRus }} всех цветов </button>
+
+        </span>
+        </h3>
+
+        <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
+            Товар данного типа еще не поступил в продажу</h2>
         <div class="card-container">
             <c-women-tshirt-item
-                    v-for="product in PRODUCT_WOMAN_TSHIRT"
+                    v-for="product in filteredProducts"
                     :key="product.article"
                     v-bind:product_data="product"
 
             />
         </div>
 
-        <h2 v-if="PRODUCT_WOMAN_TSHIRT.length <= 0">Доступные товары ещe не поступили в эту категорию</h2>
+        <h2 v-if="filteredProducts.length <= 0">Доступные товары ещe не поступили в эту категорию</h2>
     </div>
 </template>
 
@@ -20,37 +36,76 @@
     import CPresentWrapper from '../../../c-present-wrapper'
     import CWomenTshirtItem from './c-women-tshirt-item'
     import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
-    import {mapActions, mapGetters, mapState} from 'vuex'
+    import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
+    import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
+    import CColorPicker from "../../../c-color-picker";
+    import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
+    import CTshirtSubcategory from "./subgategories/c-tshirt-subcategory";
     export default {
         name: "c-women-tshirt",
         data() {
             return {
-
+                sortedSubCategoryNameRus: 'Майки', //имя субкатегории по русски
             }
 
         },
+        mixins: [baseFunctionality, selectSubCategory, colorPicker],
         components:{
             CWomenTshirtItem,
             CPresentWrapper,
-            CLinkToWomenTemplate
+            CLinkToWomenTemplate,
+            CColorPicker,
+            CTshirtSubcategory
         },
         methods:{
-            ...mapActions([
-                'GET_PRODUCTS_FROM_API',
-            ]),
+            selectSubcategoryTshirt(selectedSubcategoryTshirt) {
+                if(selectedSubcategoryTshirt === true){
+
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'tshirt'
+                    this.sortedSubCategoryNameRus = 'с рукавами'
+                    this.sortedSubCategoryStatus = false
+                    return this.selectSubCategory
+
+                }
+            },
+            selectSubcategorySleeveless(selectedSubcategorySleeveless){
+                if(selectedSubcategorySleeveless === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'sleeveless'
+                    this.sortedSubCategoryNameRus = 'без рукавов'
+                    this.sortedSubCategoryStatus = false
+
+                    return this.selectSubCategory
+
+                }
+            },
+            selectSubcategoryOverShoulder(selectedSubcategoryCardiganCardigan) {
+                if(selectedSubcategoryCardiganCardigan === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'overshoulder'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'через плече'
+
+
+                    return this.selectSubCategory
+                }
+            },
 
         },
 
         computed: {
-            ...mapGetters([
-                "PRODUCT_WOMAN_TSHIRT"
-            ]),
+
+            //Передаем геттер с выбранным товарам в переменную
+            productSource: function(){
+                return this.$store.getters.PRODUCT_WOMAN_TSHIRT
+            },
 
         },
-        mounted() {
-            this.GET_PRODUCTS_FROM_API();
 
-        }
     }
 </script>
 

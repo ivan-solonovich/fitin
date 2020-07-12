@@ -5,14 +5,13 @@
     >
 
     </c-products-item-cards-template>
-
 </template>
 
 <script>
-    import CProductsItemCardsTemplate from './cards-template/c-products-item-cards-template'
+    import CProductsItemCardsTemplate from "./cards-template/c-products-item-cards-template";
 
     export default {
-        name: "c-women-overalls-item",
+        name: "c-men-tshirt-item",
         props: {
             product_data: {
                 type: Object,

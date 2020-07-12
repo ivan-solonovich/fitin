@@ -29,6 +29,7 @@
 
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
+
         <div class="card-container">
 
             <c-women-coats-item
@@ -51,10 +52,11 @@
     import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
 
     import CWomenCoatsItem from './c-women-coats-item'
+
     import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
     import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
     import CCoatsSubcategory from './subgategories/c-coats-subcategory'
-    import {mapGetters} from 'vuex'
+
     import CColorPicker from "../../../c-color-picker";
     import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
 
@@ -472,19 +474,16 @@
 
 
         components:{
-            CColorPicker,
             CWomenCoatsItem,
             CPresentWrapper,
             CLinkToWomenTemplate,
-            CCoatsSubcategory
+            CCoatsSubcategory,
+            CColorPicker,
         },
 
 
         computed: {
-            ...mapGetters([
 
-               "PRODUCT_WOMAN_COAT"
-            ]),
                 //Передаем геттер с выбранным товарам в переменную
             productSource: function(){
                 return this.$store.getters.PRODUCT_WOMAN_COAT

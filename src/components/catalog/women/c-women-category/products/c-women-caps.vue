@@ -31,7 +31,7 @@
             />
         </div>
 
-        <h2 v-if="PRODUCT_WOMAN_CAP.length <= 0">Доступные товары ещe не поступили в эту категорию</h2>
+        <h2 v-if="filteredProducts.length <= 0">Доступные товары ещe не поступили в эту категорию</h2>
     </div>
 </template>
 

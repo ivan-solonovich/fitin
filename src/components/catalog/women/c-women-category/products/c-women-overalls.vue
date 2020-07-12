@@ -2,7 +2,11 @@
     <div class="c-products-wrapper">
         <c-present-wrapper></c-present-wrapper>
         <c-link-to-women-template></c-link-to-women-template>
-        <c-overalls-subcategory/>
+        <c-overalls-subcategory
+                @selectedSubcategoryAll="selectSubcategoryAll"
+                @selectedSubcategoryOverallsJeans="selectSubcategoryOverallsJeans"
+                @selectedSubcategoryOverallsTextill="selectSubcategoryOverallsTextill"
+        />
         <c-color-picker/>
         <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
             Товар данного цвета еще не поступил в продажу
@@ -14,6 +18,7 @@
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
 
             Товар данного типа еще не поступил в продажу</h2>
+        <div class="card-container">
         <c-women-overalls-item
                 v-for="product in filteredProducts"
                 :key="product.article"
@@ -21,7 +26,7 @@
 
         />
         <h2 v-if="filteredProducts.length <= 0">Доступные товары ещe не поступили в эту категорию</h2>
-
+        </div>
 
     </div>
 </template>
@@ -52,11 +57,7 @@
             COverallsSubcategory
         },
         methods:{
-            selectSubcategoryAll(){
-                this.selectedSubcategoryAll = true
-                return  this.$emit('selectedSubcategoryAll', this.selectedSubcategoryAll)
 
-            },
             selectSubcategoryOverallsJeans(selectedSubcategoryOverallsJeans) {
                 if(selectedSubcategoryOverallsJeans === true){
 
@@ -66,29 +67,17 @@
                     this.sortedSubCategoryNameRus = 'Джинсовый'
                     this.sortedSubCategoryStatus = false
                     return this.selectSubCategory
-                    // if (this.selectSubCategory.length){
-                    //      this.sortedSubCategoryStatus = false
-                    // }else{
-                    //      this.sortedSubCategoryStatus = true
-                    // }
-                    //
 
-                    //
-                    //
                 }
             },
             selectSubcategoryOverallsTextill(selectSubcategoryOverallsTextill){
                 if(selectSubcategoryOverallsTextill === true){
                     this.sortedCategories = []
                     this.chosenColor = ''
-                    this.sortedSubCategoryName = 'textill'
+                    this.sortedSubCategoryName = 'textile'
                     this.sortedSubCategoryNameRus = 'Текстильный'
                     this.sortedSubCategoryStatus = false
-                    // if (this.selectSubCategory.length){
-                    //      this.sortedSubCategoryStatus = false
-                    // }else{
-                    //      this.sortedSubCategoryStatus = true
-                    // }
+
                     return this.selectSubCategory
 
                 }

@@ -1,7 +1,7 @@
 <template>
     <div class="c-products-wrapper">
         <c-present-wrapper></c-present-wrapper>
-        <c-link-to-women-template></c-link-to-women-template>
+        <c-link-to-men-template></c-link-to-men-template>
         <c-hoodies-subcategory
                 @selectedSubcategoryAll="selectSubcategoryAll"
                 @selectedSubcategoryHoodiesZip="selectSubcategoryHoodiesZip"
@@ -18,7 +18,7 @@
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
         <div class="card-container">
-            <c-women-hoodies-item
+            <c-men-hoodies-item
                     v-for="product in filteredProducts"
                     :key="product.article"
                     v-bind:product_data="product"
@@ -32,15 +32,15 @@
 
 <script>
     import CPresentWrapper from '../../../c-present-wrapper'
-    import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
-    import CWomenHoodiesItem from './c-women-hoodies-item'
+    import CLinkToMenTemplate from './cards-template/c-link-to-men-template'
+    import CMenHoodiesItem from './c-men-hoodies-item'
     import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
     import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
     import CColorPicker from "../../../c-color-picker";
     import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
     import CHoodiesSubcategory from "./subgategories/c-hoodies-subcategory";
     export default {
-        name: "c-women-hoodies",
+        name: "c-men-hoodies",
         data() {
             return {
 
@@ -75,9 +75,9 @@
         },
         components:{
 
-            CWomenHoodiesItem,
+            CMenHoodiesItem,
             CPresentWrapper,
-            CLinkToWomenTemplate,
+            CLinkToMenTemplate,
             CHoodiesSubcategory,
             CColorPicker,
         },
@@ -85,7 +85,7 @@
         computed: {
             //Передаем геттер с выбранным товарам в переменную
             productSource: function(){
-                return this.$store.getters.PRODUCT_WOMAN_HOODIES
+                return this.$store.getters.PRODUCT_MAN_HOODIES
             },
 
         },

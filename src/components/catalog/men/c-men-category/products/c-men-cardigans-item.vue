@@ -1,18 +1,13 @@
 <template>
-
     <c-products-item-cards-template
             :product_data="product_data"
-    >
-
-    </c-products-item-cards-template>
-
+    />
 </template>
 
 <script>
     import CProductsItemCardsTemplate from './cards-template/c-products-item-cards-template'
-
     export default {
-        name: "c-women-overalls-item",
+        name: "c-men-cardigans-item",
         props: {
             product_data: {
                 type: Object,
@@ -20,6 +15,14 @@
                     return {}
                 }
             }
+        },
+        methods:{
+
+
+        },
+
+        computed:{
+
         },
         components:{
             CProductsItemCardsTemplate,

@@ -17,7 +17,7 @@ export default {
     },
     PRODUCT_WOMAN_OVERALLS(state){
 
-        return  state.products.filter(products => (products.type === 'woman' && products.category === 'Комбинезон'));
+        return  state.products.filter(products => (products.type === 'woman' && products.category === 'overalls'));
     },
     PRODUCT_WOMAN_CARDIGANS(state){
 
@@ -27,11 +27,7 @@ export default {
 
         return  state.products.filter(products => (products.type === 'woman' && products.category === 't-short'));
     },
-    PRODUCT_WOMAN_TSHIRT_RED(state){
 
-        return  state.products.filter(products => (products.type === 'woman' && products.category === 't-short'
-        && products.color === 'red'));
-    },
     PRODUCT_WOMAN_SHOES(state){
 
         return  state.products.filter(products => (products.type === 'woman' && products.category === 'shoes'));
@@ -58,11 +54,27 @@ export default {
     },
     PRODUCT_MAN_OVERALLS(state){
 
-        return  state.products.filter(products => (products.type === 'man' && products.category === 'Комбинезон'));
+        return  state.products.filter(products => (products.type === 'man' && products.category === 'overalls'));
     },
     PRODUCT_MAN_COAT(state){
 
         return  state.products.filter(products => (products.type === 'man' && products.category === 'Coat'));
+    },
+    PRODUCT_MAN_CARDIGANS(state){
+
+        return  state.products.filter(products => (products.type === 'man' && products.category === 'cardigan'));
+    },
+    PRODUCT_MAN_CAP(state){
+
+        return  state.products.filter(products => (products.type === 'man' && products.category === 'cap'));
+    },
+    PRODUCT_MAN_HOODIES(state){
+
+        return  state.products.filter(products => (products.type === 'man' && products.category === 'hoodies'));
+    },
+    PRODUCT_MAN_TSHIRT(state){
+
+        return  state.products.filter(products => (products.type === 'man' && products.category === 't-short'));
     },
     CART(state) {
         return state.cart;

@@ -1,7 +1,7 @@
 <template>
     <div class="c-products-wrapper">
         <c-present-wrapper></c-present-wrapper>
-        <c-link-to-women-template></c-link-to-women-template>
+        <c-link-to-men-template></c-link-to-men-template>
 
         <c-cardigans-subcategory
                 @selectedSubcategoryAll="selectSubcategoryAll"
@@ -23,7 +23,7 @@
             Товар данного типа еще не поступил в продажу</h2>
         <div class="card-container">
 
-            <c-women-cardigans-item
+            <c-men-cardigans-item
                     v-for="product in  filteredProducts "
                     :key="product.article"
                     v-bind:product_data="product"
@@ -39,17 +39,17 @@
 
 
 import CPresentWrapper from '../../../c-present-wrapper'
-import CWomenCardigansItem from './c-women-cardigans-item'
-import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
+import CMenCardigansItem from './c-men-cardigans-item'
+import CLinkToMenTemplate from './cards-template/c-link-to-men-template'
 import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
 import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
 
-
+import {mapGetters} from 'vuex'
 import CColorPicker from "../../../c-color-picker";
 import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
 import CCardigansSubcategory from "./subgategories/c-cardigans-subcategory";
 export default {
-    name: "c-women-cardigans",
+    name: "c-men-cardigans",
     data(){
         return{
             sortedSubCategoryNameRus: 'Свитера', //имя субкатегории по русски
@@ -58,9 +58,9 @@ export default {
     mixins: [baseFunctionality, selectSubCategory, colorPicker],
     components: {
         CCardigansSubcategory,
-        CWomenCardigansItem,
+        CMenCardigansItem,
         CPresentWrapper,
-        CLinkToWomenTemplate,
+        CLinkToMenTemplate,
         CColorPicker,
     },
     methods: {
@@ -115,10 +115,12 @@ export default {
     },
 
     computed: {
-
+        ...mapGetters([
+            "PRODUCT_MAN_CARDIGANS"
+        ]),
 //Передаем геттер с выбранным товарам в переменную
         productSource: function(){
-            return this.$store.getters.PRODUCT_WOMAN_CARDIGANS
+            return this.$store.getters.PRODUCT_MAN_CARDIGANS
         },
 
 

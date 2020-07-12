@@ -23,7 +23,10 @@ import CWomenDress from '../components/catalog/women/c-women-category/products/c
 //MEN
 import CMenOveralls from '../components/catalog/men/c-men-category/products/c-men-overalls'
 import CMenCoats from '../components/catalog/men/c-men-category/products/c-men-coats'
-
+import CMenCardigans from '../components/catalog/men/c-men-category/products/c-men-cardigans'
+import CMenCaps from '../components/catalog/men/c-men-category/products/c-men-caps'
+import CMenHoodies from '../components/catalog/men/c-men-category/products/c-men-hoodies'
+import CMenTshirt from '../components/catalog/men/c-men-category/products/c-men-tshirt'
 Vue.use(VueRouter)
 
 const router = new VueRouter(
@@ -44,7 +47,8 @@ const router = new VueRouter(
             {
                 path: '/women',
                 name: 'women',
-                component: CWomenCategory
+                component: CWomenCategory,
+                meta:{sortedCategoryStatus: false, sortedSubCategoryStatus: false}
             },
             {
                 path: '/catalog-woman-overalls',
@@ -104,7 +108,8 @@ const router = new VueRouter(
             {
                 path: '/men',
                 name: 'men',
-                component: CMenCategory
+                component: CMenCategory,
+                meta:{sortedCategoryStatus: false, sortedSubCategoryStatus: false}
             },
 
             {
@@ -119,7 +124,27 @@ const router = new VueRouter(
                 component: CMenCoats
 
             },
+            {
+                path: '/catalog-men-cardigans',
+                name: 'cm-cardigans',
+                component: CMenCardigans
 
+            },
+            {
+                path: '/catalog-man-cap',
+                name: 'cm-cap',
+                component: CMenCaps,
+            },
+            {
+                path: '/catalog-man-hoodies',
+                name: 'cm-hoodies',
+                component: CMenHoodies,
+            },
+            {
+                path: '/catalog-man-tshirt',
+                name: 'cm-tshirt',
+                component: CMenTshirt,
+            },
             {
                 path: '/children',
                 name: 'children',
