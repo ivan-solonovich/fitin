@@ -3,7 +3,9 @@
         <div class="c-products-wrapper-item-wrapper">
             <h3 class="c-products-wrapper-item_name">{{ product_data.name }}</h3>
             <p class="c-products-wrapper-item_prise">Цена: {{ product_data.price | toFix }}</p>
+            <p>{{ product_data.subcategory }}</p>
             <p style="margin-block-end: 0em;">Брэнд:</p>
+
             <p class="c-products-wrapper-item_brand">  `{{ product_data.brand }}`</p>
             <p>{{ product_data.color}}</p>
             <div class="icon-container">

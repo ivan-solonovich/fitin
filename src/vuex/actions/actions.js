@@ -1,7 +1,9 @@
 import axios from "axios";
+
 export default {
+
     GET_PRODUCTS_FROM_API({commit}){
-        return axios('http://localhost:3000/products', {
+        return axios('http://localhost:5001/api/products/', {
             method: "GET"
         })
             .then(( products  ) => {

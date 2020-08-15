@@ -9,7 +9,7 @@ import { EventBus } from "./event-bus/event-bus";
 import { gsap } from 'gsap'
 import anim from 'css-animation';
 //font-awesome
-import { fonts } from './fonts/fonts';
+
 import './assets/styles/styles.scss'
 //Video
 
@@ -22,7 +22,7 @@ new Vue({
   router,
   store,
   anim,
-  fonts,
+
   gsap,
   EventBus
 

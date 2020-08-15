@@ -1,7 +1,9 @@
 export default {
+
     SET_PRODUCTS_TO_STATE: (state, products) => {
         state.products = products;
     },
+
     SET_CART: (state, product )=> {
         if(state.cart.length){
             let isProductExists = false;

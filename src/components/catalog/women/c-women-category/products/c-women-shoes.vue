@@ -8,6 +8,11 @@
                 @selectedSubcategoryBallet="selectSubcategoryBallet"
                 @selectedSubcategorySandals="selectSubcategorySandals"
                 @selectedSubcategoryBoots="selectSubcategoryBoots"
+                @selectedSubcategoryAnkleBoots="selectSubcategoryAnkleBoots"
+                @selectedSubcategoryFlipFlops="selectSubcategoryFlipFlops"
+                @selectedSubcategorySlippers="selectSubcategorySlippers"
+                @selectedSubcategoryBooties="selectSubcategoryBooties"
+                @selectedSubcategoryPumps="selectSubcategoryPumps"
         />
         <c-color-picker/>
         <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
@@ -102,21 +107,73 @@
                     this.sortedSubCategoryName = 'boots'
                     this.sortedSubCategoryStatus = false
                     this.sortedSubCategoryNameRus = 'Сапоги'
-                    // let vm = this;
-                    //
-                    // this.PRODUCT_WOMAN_COAT.map(function (item) {
-                    //     if (item.subcategory === 'coatm'){
-                    //         vm.sortedCategories.push(item)
-                    //         vm.sortedSubCategoryName = 'coatm'
-                    //
-                    //     }
-                    //
-                    // })
-                    // if (this.selectSubCategory.length){
-                    //     return this.sortedSubCategoryStatus = false
-                    // }else{
-                    //     return this.sortedSubCategoryStatus = true
-                    // }
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategoryAnkleBoots(selectedSubcategoryAnkleBoots) {
+                if(selectedSubcategoryAnkleBoots === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'ankle'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Ботильоны'
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategoryFlipFlops(selectedSubcategoryFlipFlops) {
+                if(selectedSubcategoryFlipFlops === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'flipflops'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Шлепки'
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategorySlippers(selectedSubcategorySlippers) {
+                if(selectedSubcategorySlippers === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'flipflops'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Тапочки'
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategoryBooties(selectedSubcategoryBooties) {
+                if(selectedSubcategoryBooties === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'booties'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Ботинки'
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategoryRainBoots(selectedSubcategoryRainBoots) {
+                if(selectedSubcategoryRainBoots === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'rain'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Резиновые сапоги'
+
+                    return this.selectSubCategory
+                }
+            },
+            selectSubcategoryPumps(selectedSubcategoryPumps) {
+                if(selectedSubcategoryPumps === true){
+                    this.sortedCategories = []
+                    this.chosenColor = ''
+                    this.sortedSubCategoryName = 'pumps'
+                    this.sortedSubCategoryStatus = false
+                    this.sortedSubCategoryNameRus = 'Туфли'
+
                     return this.selectSubCategory
                 }
             },
