@@ -16,6 +16,9 @@ const vuexLocal = new VuexPersistence({
 
 const store = new Vuex.Store({
     state: {
+        isMobile: false,
+        isTablet:false,
+        isDesktop: true,
         products: [],
         likes: [],
         cart: [],

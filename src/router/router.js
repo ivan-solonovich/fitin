@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import FCatalog from '../components/catalog/f-catalog'
+import CLikes from '../components/likes/c-likes'
 import FPresentWrapper from '../components/present/f-present-wrapper'
 //CATEGORIES
 import CMenCategory from '../components/catalog/men/c-men-category/c-men-category'
@@ -43,6 +44,15 @@ const router = new VueRouter(
                 component: FCatalog,
 
 
+            },
+            {
+                path: '/likes/',
+                name: 'likes',
+                component: CLikes,
+                beforeRouteUpdate (to, from, next) {
+                    return this.$store.getters.LIKES;
+
+                },
             },
             {
                 path: '/women',

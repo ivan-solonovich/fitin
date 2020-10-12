@@ -1,18 +1,21 @@
 <template>
     <div class="f-catalog-main">
 
-        <c-present-wrapper></c-present-wrapper>
+    <c-present-wrapper class="c-present-wrapper"></c-present-wrapper>
 
-        <div class="f-catalog-main--wrapper">
 
-                <c-women></c-women>
-            <div class="f-catalog-main--wrapper_second">
-                <c-men></c-men>
-                <c-children></c-children>
-            </div>
-            <c-hot></c-hot>
+    <c-women class="c-women"></c-women>
 
-        </div>
+
+     <c-men class="c-men"></c-men>
+
+     <c-children class="c-children"></c-children>
+
+     <c-hot class="c-hot"></c-hot>
+
+
+
+
 
 
     </div>
@@ -41,23 +44,41 @@
 
 <style lang="scss">
     .f-catalog-main{
+        display: grid;
+        grid-template-areas:
+                "c-present-wrapper c-present-wrapper c-present-wrapper c-present-wrapper c-present-wrapper"
+                "c-women c-women c-women c-men c-men"
+                "c-women c-women c-women c-children c-children"
+                "c-hot c-hot c-hot c-hot c-hot";
 
 
-        .f-catalog-main-wrapper {
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            padding-top: .5rem;
+    }
+    .c-present-wrapper{
+        grid-area: c-present-wrapper;
+    }
+    .c-women{
+        grid-area: c-women;
+    }
+    .c-men{
+        grid-area: c-men;
+    }
+    .c-children{
+        grid-area: c-children;
+    }
+    .c-hot{
+        grid-area: c-hot;
+    }
+    @media(max-width: 800px){
+        .f-catalog-main{
+            display: grid;
+            grid-template-areas:
+                    "c-present-wrapper"
+                    "c-women"
+                    "c-men"
+                    "c-children"
+                    "c-hot";
 
 
-            justify-content: center;
-            &_second{
-                display: flex;
-                flex-direction: column;
-            }
         }
     }
 </style>

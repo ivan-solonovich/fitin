@@ -6,7 +6,7 @@ import store from './vuex/store'
 import router from './router/router';
 import { EventBus } from "./event-bus/event-bus";
 //Animation
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 import anim from 'css-animation';
 //font-awesome
 
@@ -22,7 +22,6 @@ new Vue({
   router,
   store,
   anim,
-
   gsap,
   EventBus
 

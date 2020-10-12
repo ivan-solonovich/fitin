@@ -27,7 +27,7 @@
     align-items: center;
     height: 300px;
     float: right;
-    width: 50%;
+
     a{
 
         text-decoration-line: none;

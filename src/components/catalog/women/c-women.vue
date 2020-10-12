@@ -27,12 +27,12 @@
         background-color: #e0e5e9;
 
         /*<!--background-color: $bgc;-->*/
-        display: block;
+
         justify-content: start;
         align-items: center;
         height: 600px;
         float: left;
-        width: 50%;
+
         a{
 
             text-decoration-line: none;
@@ -65,6 +65,7 @@
             object-fit: cover;
 
             height: 600px;
+            max-width: 100%;
         }
 
 

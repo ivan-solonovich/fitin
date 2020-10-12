@@ -1,42 +1,82 @@
 <template>
-    <div class="f-menu">
-        <div class="f-menu_logo ">
-            <router-link :to="{name:'present'}">
-                <div class="f-menu_logo_box ">
-                    <p class="logo">FIT - IN</p>
-                </div>
-            </router-link>
-        </div>
-        <div class="f-menu_nav ">
-            <ul>
-                <router-link :to="{name:'present'}">
-                    <li>ГЛАВНАЯ</li>
-                </router-link>
+    <div>
+    <div v-if="IS_DESKTOP" class="f-menu">
 
-                <li>ПОДОБРАТЬ</li>
-                <router-link to="catalog">
-                    <li>КАТАЛОГ</li>
-                </router-link>
-                <router-link to="hot">
-                <li>В ТРЕНДЕ</li>
-                </router-link>
-                <li>КОНТАКТЫ</li>
-            </ul>
-        </div>
-        <div class="f-menu_icons ">
-            <span class="f-menu_icons_items scale"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1.5rem" height="1.5rem" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="crimson"><path d="M21.08 7a2 2 0 0 0-1.7-1H6.58L6 3.74A1 1 0 0 0 5 3H3a1 1 0 0 0 0 2h1.24L7 15.26A1 1 0 0 0 8 16h9a1 1 0 0 0 .89-.55l3.28-6.56A2 2 0 0 0 21.08 7zm-4.7 7H8.76L7.13 8h12.25z"/><circle cx="7.5" cy="19.5" r="1.5"/><circle cx="17.5" cy="19.5" r="1.5"/></g><rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" /></svg></span>
-            <span class="f-menu_icons_items scale"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1.5rem" height="1.5rem" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><g fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 16C1 12 2 6 7 4s8 2 9 4c1-2 5-6 10-4s5 8 2 12s-12 12-12 12s-9-8-12-12z"/></g><rect x="0" y="0" width="32" height="32" fill="rgba(0, 0, 0, 0)" /></svg>  </span>
-            <span class="f-menu_icons_items scale"><i class="fal fa-shopping-bag"></i>
-                <span class="f-menu_icons_items_number">1</span>
-            </span>
+        <f-menu-logo/>
 
+        <f-menu-nav/>
+
+        <f-menu-icon/>
+
+
+    </div>
+        <div v-if="IS_TABLET" class="f-menu_tab">
+
+            <f-menu-logo/>
+
+            <f-menu-nav/>
+
+            <f-menu-icon/>
         </div>
+
+        <div v-if="IS_MOBILE" class="f-menu-nav-mobile">
+
+            <f-menu-logo/>
+
+            <f-menu-nav-mobile class="f-menu-nav-mobile"/>
+
+            <f-menu-icon class="f-menu-nav-mobile_icons"/>
+        </div>
+
     </div>
 </template>
 
 <script>
+    import { gsap } from 'gsap';
+    import {mapGetters} from "vuex";
+    import FMenuLogo from "./logo/f-menu-logo.vue"
+    import FMenuIcon from "./icon/f-menu_icons.vue"
+    import FMenuNav from "./nav/f-menu-nav"
+    import FMenuNavMobile from "./nav/f-menu-nav-mobile";
+
     export default {
-        name: "f-menu"
+        name: "f-menu",
+        components: {
+            FMenuNavMobile,
+            FMenuLogo,
+            FMenuIcon,
+            FMenuNav,
+
+        },
+        data() {
+            return{
+
+                device: '',
+
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'IS_TABLET',
+                "IS_MOBILE",
+                "IS_DESKTOP"
+            ]),
+
+        },
+        mounted() {
+            gsap.from(".f-menu_logo_box",  {y: -100, delay:2, duration: 2});
+
+            if (this.IS_TABLET === true){
+
+                gsap.to(".f-menu_logo_box",   { scaleX:1.5, scaleY:1.5, delay:2, duration: 2 });
+            }
+            if(this.IS_MOBILE === true){
+                gsap.from(".f-menu-nav-mobile", { y: -100, scaleX:1.1, scaleY:1.1, delay:1, duration: 2 })
+            }
+
+            gsap.from(".f-menu_nav", {x: 1920, duration: 2});
+            gsap.from(".f-menu_icons", {x: 1920, delay:2, duration:1});
+        }
 
     }
 </script>
@@ -47,11 +87,9 @@
     .f-menu{
         width: 100%;
         padding-bottom: 1rem;
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
+        display: grid;
+        grid-template-areas:
+                "f-menu_logo f-menu_nav f-menu_icons";
         text-decoration: none;
 
         a{
@@ -64,8 +102,14 @@
                 color: white;
             }
         }
+        &_logo_wrapper{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         &_logo_box{
-
+            width: 90px;
             border: black solid 1px;
             .logo{
                 color: $mark;
@@ -92,10 +136,15 @@
             }
         }
         &_icons{
-            max-width: 150px;
+            max-width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             padding: $p-1;
+            &_container{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
             &_items{
                 padding-right: $p-1*2;
                 &:hover{
@@ -118,10 +167,213 @@
             }
 
         }
+    .f-menu_icons{
+        grid-area: f-menu_icons;
+    }
+
+     .f-menu_nav{
+        grid-area: f-menu_nav;
+     }
+     .f-menu_logo{
+         grid-area: f-menu_logo;
+     }
 
 
 
+    }
+    .f-menu_tab{
+        width: 100%;
+        padding-top: 2.3rem;
+        padding-bottom: 1rem;
+        display: grid;
+        grid-template-areas:
+                "f-menu_logo f-menu_nav "
+                "f-menu_logo f-menu_icons"
+               ;
+        text-decoration: none;
 
+        a{
+            text-decoration: none;
+            &:visited {
+                color: black;
+            }
+            &:active{
+                background-color: $mark;
+                color: white;
+            }
+        }
+        &_logo_wrapper{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &_logo_box{
+            width: 180 px;
+
+            border: black solid 1px;
+            .logo{
+                color: $mark;
+                padding: $p-1*2;
+                margin: $m-1*2;
+                text-decoration: none;
+            }
+        }
+        &_nav{
+
+            ul{
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                list-style: none;
+                li{
+                    padding-right: $p-1*2;
+                    margin-right: $m-1=2;
+                    &:hover{
+                        color: $mark;
+                    }
+                    cursor: pointer;
+                }
+            }
+        }
+        &_icons{
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: $p-1;
+            &_container{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            &_items{
+                padding-right: $p-1*2;
+                &:hover{
+
+                    color: $mark;
+                    font-size: 110%;
+
+                }
+                &_number{
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 50%;
+                    /*margin-left: .5rem;*/
+                    /*margin-right: .5rem;*/
+                    font-size: .7rem;
+                    vertical-align: text-top;
+
+
+                }
+            }
+
+        }
+        .f-menu_icons{
+            grid-area: f-menu_icons;
+        }
+
+        .f-menu_nav{
+            grid-area: f-menu_nav;
+        }
+        .f-menu_logo{
+            grid-area: f-menu_logo;
+        }
+
+
+
+    }
+    .f-menu-nav-mobile{
+        max-height: 45px;
+        width: 100%;
+        padding-bottom: 1rem;
+        display: grid;
+        grid-template-areas:
+                "f-menu_logo f-menu-nav-mobile f-menu_icons";
+        text-decoration: none;
+
+        a{
+            text-decoration: none;
+            &:visited {
+                color: black;
+            }
+            &:active{
+                background-color: $mark;
+                color: white;
+            }
+        }
+        &_logo_wrapper{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &_logo_box{
+            width: 35px;
+            border: black solid 1px;
+            .logo{
+                color: $mark;
+                padding: $r-1;
+                margin: $r-1;
+                text-decoration: none;
+            }
+        }
+        .f-menu-nav-mobile_icon{
+            padding-top: 4px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .f-menu-nav-mobile_icon{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                list-style: none;
+
+                    cursor: pointer;
+
+            }
+        }
+        .f-menu-nav-mobile_icons{
+
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: $p-1;
+            &_container{
+                padding-top: 4px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            &_items{
+                padding-right: $p-1;
+                &:hover{
+
+                    color: $mark;
+                    font-size: 110%;
+
+                }
+                &_number{
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 50%;
+                    /*margin-left: .5rem;*/
+                    /*margin-right: .5rem;*/
+                    font-size: .7rem;
+                    vertical-align: text-top;
+
+
+                }
+            }
+
+        }
+
+        .f-menu-nav-mobile{
+            grid-area: f-menu-nav-mobile;
+        }
 
     }
 </style>

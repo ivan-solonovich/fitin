@@ -12,7 +12,12 @@ export const baseFunctionality={
     methods:{
         ...mapActions([
             'GET_PRODUCTS_FROM_API',
+            'GET_LIKES_FROM_API',
+            'ADD_TO_LIKE',
+            'ADD_TO_CART'
         ]),
+
+
 
     },
     computed: {
@@ -29,6 +34,7 @@ export const baseFunctionality={
     },
     mounted() {
         this.GET_PRODUCTS_FROM_API();
+
 
     }
 }

@@ -19,7 +19,7 @@
 
 <style lang="scss">
     .c-children {
-        width: 50%;
+
         background-color: #f4efe9;
 
         /*<!--background-color: $bgc;-->*/

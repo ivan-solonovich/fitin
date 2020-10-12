@@ -82,5 +82,14 @@ export default {
     },
     LIKES(state){
         return state.likes;
+    },
+    IS_MOBILE(state){
+        return state.isMobile;
+    },
+    IS_TABLET(state){
+        return state.isTablet;
+    },
+    IS_DESKTOP(state){
+        return state.isDesktop;
     }
 }
