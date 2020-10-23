@@ -12,6 +12,8 @@
         />
         <c-color-picker/>
 
+
+
         <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
             Товар данного цвета еще не поступил в продажу
             <br> <span>  <button class="btn-choose-color"  @click="selectedAll">{{ sortedSubCategoryNameRus }} всех цветов </button>
@@ -21,7 +23,7 @@
 
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
-        <div class="card-container">
+        <div v-bind:class="typeOfScreens()">
 
             <c-men-cardigans-item
                     v-for="product in  filteredProducts "
@@ -44,7 +46,7 @@ import CLinkToMenTemplate from './cards-template/c-link-to-men-template'
 import { selectSubCategory } from "../../../../../mixins/catalog/selectSubCategoryMixin";
 import { baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
 
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import CColorPicker from "../../../c-color-picker";
 import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
 import CCardigansSubcategory from "./subgategories/c-cardigans-subcategory";
@@ -53,7 +55,9 @@ export default {
     data(){
         return{
             sortedSubCategoryNameRus: 'Свитера', //имя субкатегории по русски
+
         }
+
     },
     mixins: [baseFunctionality, selectSubCategory, colorPicker],
     components: {
@@ -64,6 +68,8 @@ export default {
         CColorPicker,
     },
     methods: {
+
+
         selectSubcategoryCardiganJumper(selectedSubcategoryCardiganJumper) {
             if(selectedSubcategoryCardiganJumper === true){
 
@@ -116,8 +122,10 @@ export default {
 
     computed: {
         ...mapGetters([
-            "PRODUCT_MAN_CARDIGANS"
+            "PRODUCT_MAN_CARDIGANS",
+
         ]),
+
 //Передаем геттер с выбранным товарам в переменную
         productSource: function(){
             return this.$store.getters.PRODUCT_MAN_CARDIGANS
@@ -125,6 +133,12 @@ export default {
 
 
     },
+    mounted() {
+
+
+
+
+    }
 
 
 }

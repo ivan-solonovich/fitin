@@ -64,18 +64,18 @@
 
         },
         mounted() {
-            gsap.from(".f-menu_logo_box",  {y: -100, delay:2, duration: 2});
+            gsap.from(".f-menu_logo_box",  {y: -100, delay:1, duration: 1});
 
             if (this.IS_TABLET === true){
 
-                gsap.to(".f-menu_logo_box",   { scaleX:1.5, scaleY:1.5, delay:2, duration: 2 });
+                gsap.to(".f-menu_logo_box",   { scaleX:1.5, scaleY:1.5, delay:1, duration: 1 });
             }
             if(this.IS_MOBILE === true){
-                gsap.from(".f-menu-nav-mobile", { y: -100, scaleX:1.1, scaleY:1.1, delay:1, duration: 2 })
+                gsap.from(".f-menu-nav-mobile", { y: -100, scaleX:1.1, scaleY:1.1, delay:.5, duration: 2 })
             }
 
-            gsap.from(".f-menu_nav", {x: 1920, duration: 2});
-            gsap.from(".f-menu_icons", {x: 1920, delay:2, duration:1});
+            gsap.from(".f-menu_nav", {x: 1920, duration: 1});
+            gsap.from(".f-menu_icons", {x: 1920, delay:1, duration:.5});
         }
 
     }

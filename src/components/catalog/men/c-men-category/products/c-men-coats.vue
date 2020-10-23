@@ -27,7 +27,7 @@
             Товар данного типа еще не поступил в продажу
         </h2>
 
-        <div class="card-container">
+        <div v-bind:class="typeOfScreens()">
 
             <c-men-coats-item
                     v-for="product in filteredProducts"

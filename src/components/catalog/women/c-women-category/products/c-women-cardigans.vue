@@ -21,7 +21,7 @@
 
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
-        <div class="card-container">
+        <div v-bind:class="typeOfScreens()">
 
             <c-women-cardigans-item
                     v-for="product in  filteredProducts "

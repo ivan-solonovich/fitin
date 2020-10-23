@@ -31,10 +31,10 @@ export default {
   mounted() {
     let vm = this;
     window.addEventListener('resize', function() {
-      if(window.innerWidth >767 && window.innerWidth<1440){
+      if(window.innerWidth >900 && window.innerWidth<1440){
         vm.SET_TABLET();
         console.log('tablet', vm.IS_TABLET);
-      }else if(window.innerWidth<767){
+      }else if(window.innerWidth<900){
         vm.SET_MOBILE();
         console.log('mobile', vm.IS_MOBILE);
       }else{

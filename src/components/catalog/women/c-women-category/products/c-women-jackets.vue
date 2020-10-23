@@ -3,7 +3,7 @@
         <c-present-wrapper></c-present-wrapper>
         <c-link-to-women-template></c-link-to-women-template>
 
-        <div class="card-container">
+        <div v-bind:class="typeOfScreens()">
             <c-women-jackets-item
                     v-for="product in PRODUCT_WOMAN_JACKETS"
                     :key="product.article"
@@ -23,6 +23,9 @@
     import CLinkToWomenTemplate from './cards-template/c-link-to-women-template'
     import CWomenJacketsItem from './c-women-jackets-item'
     import {mapActions, mapGetters, mapState} from 'vuex'
+    import {baseFunctionality} from "../../../../../mixins/catalog/basefunction/basefunctionality";
+    import {selectSubCategory} from "../../../../../mixins/catalog/selectSubCategoryMixin";
+    import {colorPicker} from "../../../../../mixins/catalog/color-picker-mixin";
     export default {
         name: "c-woman-jackets",
         data() {
@@ -32,7 +35,7 @@
             }
 
         },
-
+        mixins: [baseFunctionality, selectSubCategory, colorPicker],
         methods:{
             ...mapActions([
                 'GET_PRODUCTS_FROM_API',

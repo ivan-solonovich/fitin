@@ -3,15 +3,16 @@
         <c-present-wrapper></c-present-wrapper>
         <c-link-to-men-template></c-link-to-men-template>
 
-
-        <c-caps-subcategory
-                @selectedSubcategoryAll="selectSubcategoryAll"
-                @selectedSubcategoryCapBaseball="selectSubcategoryCapBaseball"
-                @selectedSubcategoryCapNapper="selectSubcategoryCapNapper"
-                @selectedSubcategoryCapWinter="selectSubcategoryCapWinter"
-                @selectedSubcategoryCapBeret="selectSubcategoryCapBeret"
-        />
-        <c-color-picker/>
+        <div class="choose-container-mobile">
+                <c-caps-subcategory
+                        @selectedSubcategoryAll="selectSubcategoryAll"
+                        @selectedSubcategoryCapBaseball="selectSubcategoryCapBaseball"
+                        @selectedSubcategoryCapNapper="selectSubcategoryCapNapper"
+                        @selectedSubcategoryCapWinter="selectSubcategoryCapWinter"
+                        @selectedSubcategoryCapBeret="selectSubcategoryCapBeret"
+                />
+                <c-color-picker/>
+        </div>
         <h3 class="sorted-category-status" v-if="sortedCategoryStatus === true">
             Товар данного цвета еще не поступил в продажу
             <br> <span>  <button class="btn-choose-color"  @click="selectedAll">{{ sortedSubCategoryNameRus }} всех цветов </button>
@@ -22,7 +23,7 @@
         <h2 class="sorted-category-status" v-if="sortedSubCategoryStatus === true">
             Товар данного типа еще не поступил в продажу</h2>
 
-        <div class="card-container">
+        <div v-bind:class="typeOfScreens()">
             <c-men-caps-item
                     v-for="product in filteredProducts"
                     :key="product.article"
@@ -45,6 +46,7 @@
     import { colorPicker } from "../../../../../mixins/catalog/color-picker-mixin";
     import CColorPicker from "../../../c-color-picker";
     import CCapsSubcategory from '../products/subgategories/c-caps-subcategory'
+    import {colorPickerScreen} from "../../../../../mixins/catalog/color-picker-screen";
     export default {
         name: "c-men-caps",
         data(){
@@ -53,7 +55,7 @@
             }
         },
 
-        mixins: [baseFunctionality, selectSubCategory, colorPicker],
+        mixins: [baseFunctionality, selectSubCategory, colorPicker, colorPickerScreen],
 
         methods:{
             selectSubcategoryCapBaseball(selectedSubcategoryCapBaseball) {
