@@ -51,6 +51,7 @@ export const selectSubCategory = {
             }
         },
 
+
     },
     computed:{
 
@@ -125,6 +126,7 @@ export const selectSubCategory = {
                         if (vm.sortedCategories.length){ //Если товар данной категории нашелся
 
                             return vm.sortedCategories, //Вернуть найденный товар выбранной категории
+
                                 vm.sortedCategoryStatus = true, //Сообщение об отсуствии товара данного цвета
                                 vm.sortedSubCategoryStatus = false
                         }else {

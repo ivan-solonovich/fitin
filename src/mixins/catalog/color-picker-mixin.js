@@ -6,6 +6,7 @@ export const colorPicker = {
     data() {
         return {
             colorIsOpen: true,
+            chosenColor: '',
         }
     },
     mixins: [colorPickerScreen],
@@ -21,6 +22,7 @@ export const colorPicker = {
         },
 
         selectedAll: function () {
+            this.chosenColor = ''
             if(this.IS_DESKTOP === true) {
                 EventBus.$emit('selectedAll', this.selectedAll = '')
             }else {

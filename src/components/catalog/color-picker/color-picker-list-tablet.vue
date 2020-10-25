@@ -59,11 +59,25 @@
 
 <script>
     import {colorPicker} from "../../../mixins/catalog/color-picker-mixin";
+    import {colorPickerScreen} from "../../../mixins/catalog/color-picker-screen";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "color-picker-list-tablet",
+        data() {
+            return {
+                colorIsOpen: true,
+            }
+        },
+        mixins: [colorPicker, colorPickerScreen],
+        computed: {
+            ...mapGetters([
+                "IS_DESKTOP",
+                "IS_TABLET",
+                "IS_MOBILE"
+            ]),
 
-        mixins: [colorPicker]
+        },
     }
 </script>
 
